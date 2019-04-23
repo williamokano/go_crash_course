@@ -11,6 +11,6 @@ func getSum(num1, num2 int) int {
 }
 
 func main() {
-	fmt.Println(greeting("Bitch"))
+	fmt.Println(greeting("Dude"))
 	fmt.Println(getSum(1, 2))
 }
