@@ -2,6 +2,7 @@ package fib
 
 import "math/big"
 
+// Fib fff
 func Fib(n uint) *big.Int {
 	if n <= 1 {
 		return big.NewInt(int64(n))
