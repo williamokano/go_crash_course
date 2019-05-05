@@ -10,17 +10,17 @@ import (
 
 // Order is struct for orders.
 type Order struct {
-	OrderID    int
-	CustomerID int
+	OrderID    int `json:"order_id" column:"order_id"`
+	CustomerID int `json:"customer_id" column:"customer_id"`
 }
 
 // Employee is whatever you want
 type Employee struct {
-	Name    string
-	ID      int
-	Address string
-	Salary  int
-	Country string
+	Name    string `json:"name"`
+	ID      int    `json:"id" column:"employee_id"`
+	Address string `json:"address"`
+	Salary  int    `json:"salary" column:"annual_salary"`
+	Country string `json:"country"`
 }
 
 // Clear is better than clever... Reflection is not clear!
@@ -53,7 +53,14 @@ func createGenericInsertQuery(data interface{}) (string, error) {
 		fieldsOfDataStruct := make(map[string]string)
 		indirectValueOfData := reflect.Indirect(valueOfData)
 		for i := 0; i < valueOfData.NumField(); i++ {
-			fieldName := indirectValueOfData.Type().Field(i).Name
+
+			var fieldName string
+			if fieldNameTag, ok := indirectValueOfData.Type().Field(i).Tag.Lookup("column"); ok {
+				fieldName = fieldNameTag
+			} else {
+				fieldName = indirectValueOfData.Type().Field(i).Name
+			}
+
 			if valueOfData.Field(i).Type().Kind() == reflect.String {
 				fieldsOfDataStruct[fieldName] = "'" + valueOfData.Field(i).String() + "'"
 			} else {
