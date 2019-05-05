@@ -8,19 +8,19 @@ import (
 
 func BenchmarkFib10(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		fib(10)
+		Fib(10)
 	}
 }
 
 func BenchmarkFib20(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		fib(20)
+		Fib(20)
 	}
 }
 
 func BenchmarkFib100(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		fib(100)
+		Fib(100)
 	}
 }
 
@@ -56,7 +56,7 @@ func TestFib(t *testing.T) {
 
 	for _, d := range data {
 		t.Run(fmt.Sprintf("Testing fib(%d)", d.n), func(t *testing.T) {
-			if got := fib(d.n); got.Cmp(d.want) != 0 {
+			if got := Fib(d.n); got.Cmp(d.want) != 0 {
 				t.Errorf("Invalid Fibonacci value for N: %d, got: %s, want: %s", d.n, got.String(), d.want.String())
 			}
 		})
